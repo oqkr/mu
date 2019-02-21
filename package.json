@@ -1,0 +1,25 @@
+{
+  "name": "mu",
+  "version": "0.1.0",
+  "description": "Mu is a Discord bot banned in 32 out of 50 US states.",
+  "homepage": "https://github.com/oqkr/mu#readme",
+  "bugs": "https://github.com/oqkr/mu/issues",
+  "keywords": [
+    "Discord",
+    "bot",
+    "moderation"
+  ],
+  "author": "oqkr <oqkr@protonmail.com>",
+  "repository": "github:oqkr/mu",
+  "main": "server.js",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/uws": "^11.149.1",
+    "axios": "^0.18.0",
+    "discord.js": "^11.4.2",
+    "erlpack": "discordapp/erlpack",
+    "signale": "^1.3.0",
+    "toml": "^3.0.0",
+    "zlib-sync": "^0.1.4"
+  }
+}
