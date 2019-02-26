@@ -11,7 +11,11 @@
   ],
   "author": "oqkr <oqkr@protonmail.com>",
   "repository": "github:oqkr/mu",
-  "main": "server.js",
+  "main": "./dist/server.js",
+  "scripts": {
+    "build": "rm -rf ./dist && tsc",
+    "start": "node ./dist/server.js"
+  },
   "license": "MIT",
   "dependencies": {
     "@discordjs/uws": "^11.149.1",

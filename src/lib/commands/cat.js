@@ -1,6 +1,6 @@
 'use strict';
 
-const axios = require('axios');
+import axios from 'axios'
 
 const url = 'https://aws.random.cat/meow';
 

@@ -1,6 +1,7 @@
 'use strict';
 
-const { Signale } = require('signale');
+// const { Signale } = require('signale');
+import { Signale } from 'signale';
 
 const log = new Signale({
   types: {
