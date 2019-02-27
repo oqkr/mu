@@ -4,24 +4,14 @@
     "target": "es2018",
     "module": "commonjs",
 
-    "allowJs": true,
-    "checkJs": true,
-
-    "diagnostics": true,
-    "listEmittedFiles": true,
-
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
-
-    "alwaysStrict": true,
-    "strictBindCallApply": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true
+    "noUnusedParameters": true
   },
 
-  "include": ["./src/"],
+  "include": ["src/"],
   "exclude": ["node_modules"]
 }
