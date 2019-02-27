@@ -1,0 +1,56 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:all", "tslint-eslint-rules", "tslint-config-prettier"],
+  "rulesDirectory": ["node_modules/tslint-eslint-rules/dist/rules"],
+  "linterOptions": { "exclude": [".ignore/**/*"] },
+  "jsRules": {},
+  "rules": {
+    // tslint: type-script specific
+    "member-ordering": [true, { "order": "fields-first" }],
+    "no-inferrable-types": [true, "ignore-params"],
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      // omitted: variable-declaration
+      "member-variable-declaration",
+      // omitted: object-destructuring
+      "array-destructuring"
+    ],
+
+    // tslint: functionality
+    "curly": [true, "ignore-same-line"],
+    "no-void-expression": [true, "ignore-arrow-function-shorthand"],
+
+    // tslint: maintainability
+    "no-default-export": false,
+    "no-default-import": false,
+
+    // tslint: style
+    "file-name-casing": [false, "camel-case"],
+    "interface-name": [true, "never-prefix"],
+    "object-literal-sort-keys": false,
+
+    // eslint
+    "no-constant-condition": true,
+    "no-control-regex": true,
+    "no-duplicate-case": true,
+    "no-empty-character-class": true,
+    "no-ex-assign": true,
+    "no-extra-boolean-cast": true,
+    "no-inner-declarations": [true, "function"],
+    "no-invalid-regexp": true,
+    "ter-no-irregular-whitespace": [true],
+    "no-regex-spaces": true,
+    "ter-no-sparse-arrays": [true],
+    "no-unexpected-multiline": true,
+    "valid-typeof": true,
+    "ter-no-proto": true,
+    "ter-no-self-compare": true,
+    "ter-prefer-arrow-callback": [true],
+    "valid-jsdoc": [true]
+  }
+}
