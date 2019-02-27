@@ -1,15 +1,18 @@
-'use strict';
+import Axios from 'axios';
+import { Message } from 'discord.js';
 
-import axios from 'axios'
+import Command from '../Command';
 
 const url = 'https://aws.random.cat/meow';
 
-// Return the URL of a random cat image.
-module.exports = {
+/** Return the URL of a random cat image. */
+const cat: Command = {
   name: 'cat',
-  run: async message => {
-    const { data } = await axios.get(url);
+  run: async (message: Message): Promise<void> => {
+    const { data } = await Axios.get(url);
     if (!data.file) throw new Error(`no image in response from ${url}`);
     await message.channel.send(data.file);
-  }
+  },
 };
+
+export default cat;
