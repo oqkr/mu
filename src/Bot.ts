@@ -1,6 +1,6 @@
 import { Client, ClientOptions } from 'discord.js';
 
-import Config from './config';
+import Config from './Config';
 
 /** Wraps a Discord#Client to add a Config. */
 class Bot extends Client {
