@@ -1,17 +1,22 @@
-import Axios from 'axios';
 import { Message } from 'discord.js';
+import { get } from 'got';
 
 import Command from '../Command';
 
-const url = 'https://aws.random.cat/meow';
+const apiURL = 'https://aws.random.cat/meow';
 
-/** Return the URL of a random cat image. */
+/** Shape of JSON-bearing response object from cat API. */
+type Response = { body: { file?: string } };
+
+/** Returns the URL of a random cat image. */
 const cat: Command = {
   name: 'cat',
   run: async (message: Message): Promise<void> => {
-    const { data } = await Axios.get(url);
-    if (!data.file) throw new Error(`no image in response from ${url}`);
-    await message.channel.send(data.file);
+    const {
+      body: { file: imageURL },
+    }: Response = await get(apiURL, { json: true });
+    if (!imageURL) throw new Error(`no image in response from ${apiURL}`);
+    await message.channel.send(imageURL);
   },
 };
 
