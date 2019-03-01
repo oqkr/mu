@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import Command from '../Command';
 
-/** Respond to "ping" with "pong." */
+/** Responds to "ping" with "pong." */
 const ping: Command = {
   name: 'ping',
   run: async (message: Message): Promise<void> => {
