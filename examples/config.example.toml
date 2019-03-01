@@ -1,0 +1,33 @@
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
+# Configuration file for mu [https://github.com/oqkr/mu].
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·
+
+# Each setting in this file may instead be set by a corresponding environment
+# variable. Lookup priority has this order (higher overwrites lower):
+#
+#     • Command-line arguments
+#     • Environment variables
+#     • Config file
+
+# The Discord API token for mu.
+# env var → MU_DISCORD_API_TOKEN.
+# default → none
+token  = ''
+
+# Messages that start with this character are interpreted as bot commands.
+# env var → MU_COMMAND_PREFIX
+# default → '%'
+prefix = ''
+
+# Settings for accessing the Cleverbot API (optional).
+[cleverbot]
+
+  # The Cleverbot API user.
+  # env var → MU_CLEVERBOT_USER
+  # default → none
+  user = ''
+
+  # The Cleverbot API key.
+  # env var → MU_CLEVERBOT_KEY
+  # default → none
+  key  = ''
