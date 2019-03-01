@@ -1,35 +1,48 @@
 import * as fs from 'fs';
 import * as os from 'os';
-import * as toml from 'toml';
 import { join as joinPaths } from 'path';
-
-import log from './log';
+import * as toml from 'toml';
 
 const defaultPath = joinPaths(os.homedir(), '.config/mu/config.toml');
-const defaultPrefix = '%';
 
-interface Cache {
-  path: string;
-  config: Config | null;
-}
+/** The names and values we recognize in config files. */
+type KnownSettings = {
+  prefix?: string;
+  token?: string;
+  cleverbot?: {
+    user?: string;
+    key?: string;
+  };
+};
 
-export default class Config extends Map<string, any> {
-  private static readonly cache: Cache = { path: '', config: null };
-  public static fromFile(
-    path: string = defaultPath,
-    expireCache: boolean = false
-  ): Config {
-    log.debug(`Making a Config from path ${path}`);
-    const { cache } = Config;
-    if (!expireCache && cache.config && cache.path === path) {
-      log.debug('Using cached config');
-      return cache.config;
-    }
-    const data = toml.parse(fs.readFileSync(path, 'utf8'));
-    if (!data.prefix) data.prefix = defaultPrefix;
-    const config = new Config(Object.entries(data));
-    cache.path = path;
-    cache.config = config;
-    return config;
+/** Represents settings loaded from a TOML config file. */
+class Config {
+  /** The prefix for invoking bot commands (defaults to `%`). */
+  readonly prefix: string;
+
+  /** The Discord API token to use. */
+  readonly token: string;
+
+  /** Settings for accessing Cleverbot API. */
+  readonly cleverbot: { user: string; key: string };
+
+  /** @param str The contents of a TOML file. */
+  private constructor(str: string) {
+    const settings = toml.parse(str) as KnownSettings;
+    const cleverbot = settings.cleverbot || {};
+    this.cleverbot = { user: cleverbot.user || '', key: cleverbot.key || '' };
+    this.prefix = settings.prefix || '%';
+    this.token = settings.token || '';
+  }
+
+  /**
+   * Create a Config from a TOML file.
+   * @param path The path to the config file (defaults to
+   *     `${HOME}/.config/mu/config.toml`).
+   */
+  static fromFile(path: string = defaultPath): Config {
+    return new Config(fs.readFileSync(path, 'utf8'));
   }
 }
+
+export default Config;
