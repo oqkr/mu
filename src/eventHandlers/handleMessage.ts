@@ -30,7 +30,7 @@ async function handleMessage(message: Message): Promise<boolean> {
  */
 async function handleCommand(message: Message): Promise<boolean> {
   const bot = message.client as Bot;
-  const re = new RegExp(`^${bot.config.prefix}|^<@${bot.user.id}>`);
+  const re = new RegExp(`^${bot.config.prefix}|^<@!?${bot.user.id}>`);
   if (!re.test(message.content)) return false;
 
   const words = split(message.content.replace(re, ''));
