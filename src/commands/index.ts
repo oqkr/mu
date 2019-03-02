@@ -5,7 +5,7 @@ import ping from './ping';
 
 /** Interface for a collection of commands indexed by name. */
 interface CommandContainer {
-  [index: string]: Command;
+  readonly [index: string]: Command;
 }
 
 const commands: CommandContainer = { cat, ping };
