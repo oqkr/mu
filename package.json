@@ -11,10 +11,10 @@
   ],
   "author": "oqkr <oqkr@protonmail.com>",
   "repository": "github:oqkr/mu",
-  "main": "./dist/server.js",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "start": "node ./dist/server.js"
+    "start": "node ./dist/index.js"
   },
   "license": "MIT",
   "dependencies": {
