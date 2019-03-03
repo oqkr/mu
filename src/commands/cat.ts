@@ -3,18 +3,23 @@ import { get } from 'got';
 
 import Command from '../Command';
 
+type APIResponse = { body: { file?: string } };
+
 const apiURL = 'https://aws.random.cat/meow';
+const usage = `
+Usage: cat
 
-/** Shape of JSON-bearing response object from cat API. */
-type Response = { body: { file?: string } };
+Gets the URL of a random cat image.
+`;
 
-/** Returns the URL of a random cat image. */
+/** Gets the URL of a random cat image. */
 const cat: Command = {
   name: 'cat',
+  usage,
   run: async (message: Message): Promise<void> => {
     const {
       body: { file: imageURL },
-    }: Response = await get(apiURL, { json: true });
+    }: APIResponse = await get(apiURL, { json: true });
     if (!imageURL) throw new Error(`no image in response from ${apiURL}`);
     await message.channel.send(imageURL);
   },
