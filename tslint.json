@@ -46,9 +46,9 @@
       "functions",
       "interfaces",
       "methods",
-      "namespaces",
+      "namespaces"
       // "properties",
-      "types"
+      // "types"
     ],
     "file-name-casing": [false, "camel-case"],
     "interface-name": [true, "never-prefix"],
