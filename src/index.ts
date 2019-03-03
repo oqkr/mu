@@ -10,6 +10,7 @@ const bot = new Bot(Config.fromFile());
 bot.on('ready', () => log.success('Bot online and ready'));
 bot.on('message', (message: Message) => log.debug(`Got message: ${message}`));
 bot.on('message', handleMessage);
+bot.on('error', log.error);
 
 log.pending('Bot logging in …');
 bot.login().catch(log.fatal);
