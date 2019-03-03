@@ -10,7 +10,7 @@
 #     • Config file
 
 # The Discord API token for mu.
-# env var → MU_DISCORD_API_TOKEN.
+# env var → MU_DISCORD_TOKEN.
 # default → none
 token  = ''
 
