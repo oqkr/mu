@@ -4,6 +4,7 @@ import cat from './cat';
 import dog from './dog';
 import help from './help';
 import ping from './ping';
+import xkcd from './xkcd';
 
 /** Interface for a collection of commands indexed by name. */
 interface CommandContainer {
@@ -15,6 +16,7 @@ const commands: CommandContainer = {
   dog,
   help,
   ping,
+  xkcd,
 };
 
 export default commands;
