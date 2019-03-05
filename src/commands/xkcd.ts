@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { get } from 'got';
 
-import Command from '../Command';
+import { Command } from '../command';
 import { randomInt } from '../utils';
 
 const usage = `
