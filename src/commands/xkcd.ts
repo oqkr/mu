@@ -17,11 +17,6 @@ Examples:
   @mu xkcd 149
 `;
 
-/** Fetches an xkcd comic by ID or by search term. */
-const xkcd: Command = { name: 'xkcd', usage, run };
-
-export default xkcd;
-
 /** Main entry point for xkcd command. */
 async function run(message: Message, ...args: string[]): Promise<void> {
   const url = 'https://xkcd.com';
@@ -91,3 +86,8 @@ async function searchForComicID(query: string): Promise<number> {
 
   return id;
 }
+
+/** Fetches an xkcd comic by ID or by search term. */
+const xkcd: Command = { name: 'xkcd', usage, run };
+
+export default xkcd;
