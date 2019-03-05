@@ -6,7 +6,7 @@ const usage = `
 Usage: ping
 
 Responds with pong.
-`
+`;
 
 /** Responds with pong. */
 const ping: Command = {

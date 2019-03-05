@@ -19,7 +19,7 @@ const dog: Command = {
   run: async (message: Message): Promise<void> => {
     const {
       body: { url: imageURL },
-    }: APIResponse = await get(apiURL, {json: true});
+    }: APIResponse = await get(apiURL, { json: true });
     if (!imageURL) throw new Error(`no image in response from ${apiURL}`);
     await message.channel.send(imageURL);
   },
