@@ -2,6 +2,7 @@ import { Message } from 'discord.js';
 import { split } from 'shlex';
 
 import Bot from '../Bot';
+import { runCommand } from '../command';
 import commands from '../commands';
 import log from '../log';
 
@@ -40,15 +41,8 @@ async function handleCommand(message: Message): Promise<boolean> {
     return true;
   }
   const [command, ...args] = words;
-  if (!(command in commands)) {
-    // TODO: Calculate Levenshtein distance and recommend commands user might
-    // have meant instead of just sending error.
-    const reply = `\`${command}\` is not a known command, you stupid fuck`;
-    await message.channel.send(reply);
-    return true;
-  }
   try {
-    await commands[command].run(message, ...args);
+    await runCommand(message, commands, command, ...args);
   } catch (err) {
     log.error(`caught exception running ${command}: ${err}`);
   }
