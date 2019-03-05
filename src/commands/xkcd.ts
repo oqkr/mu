@@ -73,8 +73,7 @@ async function searchForComicID(query: string): Promise<number> {
   // The first line is a relevance score; the second line is unknown; and all
   // remaining lines are <id> <wiki-url>.
   //
-  // We only care about the first ID response here and ignore the rest.
-
+  // tslint:disable-next-line:no-magic-numbers
   const line = body.split(/\s*\n/)[2];
   if (!line) throw new Error(`no search results from ${apiURL}`);
 
