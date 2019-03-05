@@ -47,7 +47,7 @@
       "interfaces",
       "methods",
       "namespaces"
-      // "properties",
+      // "properties"
       // "types"
     ],
     "file-name-casing": [false, "camel-case"],
