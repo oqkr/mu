@@ -16,12 +16,12 @@ export default async function runCommand(
   command: string,
   ...args: string[]
 ): Promise<void> {
-  if (!(command in commands)) {
+  if (!commands.has(command)) {
     // TODO: Calculate Levenshtein distance and recommend commands user might
     // have meant instead of just sending an error.
     const reply = `\`${command}\` is not a known command, you stupid fuck`;
     await message.channel.send(reply);
     return;
   }
-  await commands[command].run(message, ...args);
+  await commands.get(command).run(message, ...args);
 }
