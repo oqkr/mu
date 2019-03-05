@@ -7,10 +7,10 @@ import { randomInt } from '../utils';
 const usage = `
 Usage: xkcd [ id | search_term | "latest" | "random" ]
 
-Fetches the latest xkcd comic, a random xkcd comic, a
-specific comic by ID, or a comic by search term.
+Fetches the latest xkcd comic, a random xkcd comic, a specific xkcd comic by \
+ID, or an xkcd comic by search term.
 
-Without arguments, this fetches a random comic.
+Without arguments, this fetches a random xkcd comic.
 
 Examples:
   @mu xkcd "make me a sandwich"
