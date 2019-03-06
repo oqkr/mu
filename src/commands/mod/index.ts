@@ -5,8 +5,9 @@ import log from '../../log';
 import { allowedToUse } from '../../utils';
 
 import kick from './kick';
+import warn from './warn';
 
-const commands = new CommandContainer(kick);
+const commands = new CommandContainer(kick, warn);
 
 const usage = `
 Usage: mod <command>
