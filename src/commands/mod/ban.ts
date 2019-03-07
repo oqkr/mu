@@ -5,16 +5,16 @@ import Command from '../../command/Command';
 import { guildMemberFromString } from '../../utils/user';
 
 const usage = `
-Usage: ban [options] { user_id | user_mention }
+Usage: mod ban [options] { user_id | user_mention }
 
-Ban users from the server.
+Bans users from the server.
 
 Options:
   -r, --reason string        Message to add to audit log.
   -d, ---days-to-delete num  Number of days of messages to delete.
 
 Example:
-  ban --reason "watches pewdiepie" @user1 @user2 @user3
+  @mu mod ban --reason "watches pewdiepie" @user1 @user2 @user3
 `;
 
 /** Main entry point for ban command. */

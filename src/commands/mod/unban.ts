@@ -5,15 +5,15 @@ import Command from '../../command/Command';
 import { userIDFromString } from '../../utils/user';
 
 const usage = `
-Usage: unban [options] { user_id | user_mention }
+Usage: mod unban [options] { user_id | user_mention }
 
-Unban users from the server.
+Unbans users from the server.
 
 Options:
   -r, --reason string  Message to add to audit log.
 
 Example:
-  unban --reason "stopped saying 'hewwo'" 123456789987654321
+  @mu mod unban --reason "stopped saying 'hewwo'" 123456789987654321
 `;
 
 /** Main entry point for unban command. */

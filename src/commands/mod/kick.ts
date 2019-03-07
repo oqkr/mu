@@ -5,15 +5,15 @@ import Command from '../../command/Command';
 import { guildMemberFromString } from '../../utils/user';
 
 const usage = `
-Usage: kick [options] { user_id | user_mention }
+Usage: mod kick [options] { user_id | user_mention }
 
-Kick users from the server.
+Kicks users from the server.
 
 Options:
   -r, --reason string  Message to add to audit log.
 
 Example:
-  kick --reason "uses Tik Tok" @user1 @user2 @user3
+  @mu mod kick --reason "uses Tik Tok" @user1 @user2 @user3
 `;
 
 /** Main entry point for kick command. */
