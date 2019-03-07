@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import Bot from './Bot.js';
 import Config from './Config.js';
-import { handleMessage } from './eventHandlers';
+import handleMessage from './eventHandlers/handleMessage';
 import log from './log.js';
 
 const bot = new Bot(Config.fromFile());
