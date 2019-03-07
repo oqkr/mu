@@ -4,10 +4,11 @@ import { Command, CommandContainer, runCommand } from '../../command';
 import log from '../../log';
 import isAllowed from '../../utils/isAllowed';
 
+import ban from './ban';
 import kick from './kick';
 import warn from './warn';
 
-const commands = new CommandContainer(kick, warn);
+const commands = new CommandContainer(ban, kick, warn);
 
 const usage = `
 Usage: mod <command>
@@ -39,6 +40,7 @@ const mod: Command = {
       await runCommand(message, commands, command, ...args2);
     } catch (err) {
       log.error(`caught exception running ${command}: ${err}`);
+      await message.channel.send(`command threw exception: ${err}`);
     }
   },
 };
