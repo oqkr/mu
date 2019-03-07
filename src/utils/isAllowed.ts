@@ -3,10 +3,7 @@ import { GuildMember, Role, User } from 'discord.js';
 import Command from '../command/Command';
 
 /** Returns true if a user has permission to run a given command. */
-export default function isAllowed(
-  user: GuildMember | User,
-  command: Command
-): boolean {
+function isAllowed(user: GuildMember | User, command: Command): boolean {
   // If user is type User, then this is a DM.
   return user instanceof User
     ? isAllowedByUser(user, command)
@@ -17,14 +14,11 @@ export default function isAllowed(
  * Returns true if user has permission to run a command considering only the
  * allowedUsers field of the command.
  */
-function isAllowedByUser(
-  user: GuildMember | User,
-  command: Command
-): boolean {
+function isAllowedByUser(user: GuildMember | User, command: Command): boolean {
   const allowedUsers = command.allowedUsers || [];
   // If this is a DM an empty allowedUsers means "allow anyone."
   if (!allowedUsers.length && user instanceof User) return true;
-  return allowedUsers.some((id: string) => user.id === id);
+  return allowedUsers.some((id: string): boolean => user.id === id);
 }
 
 /**
@@ -42,3 +36,5 @@ function isAllowedByRole(user: GuildMember, command: Command): boolean {
   if (!role) return false;
   return user.highestRole.comparePositionTo(role) >= 0;
 }
+
+export default isAllowed;
