@@ -1,4 +1,4 @@
-import { CommandContainer } from '../command';
+import CommandContainer from '../command/CommandContainer';
 
 import cat from './cat';
 import dog from './dog';

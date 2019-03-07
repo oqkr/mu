@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import * as minimist from 'minimist';
 
-import { Command } from '../../command';
+import Command from '../../command/Command';
 import { guildMemberFromString } from '../../utils/user';
 
 const usage = `

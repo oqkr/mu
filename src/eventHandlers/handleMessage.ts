@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { split } from 'shlex';
 
 import Bot from '../Bot';
-import { runCommand } from '../command';
+import runCommand from '../command/runCommand';
 import commands from '../commands';
 import log from '../log';
 

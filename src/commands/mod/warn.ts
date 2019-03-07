@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 
-import { Command } from '../../command';
+import Command from '../../command/Command';
 
 const usage = `
 Usage: warn <user_id>

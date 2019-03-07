@@ -16,6 +16,7 @@ function isAllowed(user: GuildMember | User, command: Command): boolean {
  */
 function isAllowedByUser(user: GuildMember | User, command: Command): boolean {
   const allowedUsers = command.allowedUsers || [];
+
   // If this is a DM an empty allowedUsers means "allow anyone."
   if (!allowedUsers.length && user instanceof User) return true;
   return allowedUsers.some((id: string): boolean => user.id === id);

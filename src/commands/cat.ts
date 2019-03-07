@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 import { get } from 'got';
 
-import { Command } from '../command';
+import Command from '../command/Command';
 
 type APIResponse = { body: { file?: string } };
 

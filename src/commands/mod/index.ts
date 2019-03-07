@@ -1,6 +1,8 @@
 import { Message } from 'discord.js';
 
-import { Command, CommandContainer, runCommand } from '../../command';
+import Command from '../../command/Command';
+import CommandContainer from '../../command/CommandContainer'
+import runCommand from '../../command/runCommand'
 import log from '../../log';
 import isAllowed from '../../utils/isAllowed';
 
