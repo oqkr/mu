@@ -6,9 +6,10 @@ import isAllowed from '../../utils/isAllowed';
 
 import ban from './ban';
 import kick from './kick';
+import unban from './unban';
 import warn from './warn';
 
-const commands = new CommandContainer(ban, kick, warn);
+const commands = new CommandContainer(ban, kick, unban, warn);
 
 const usage = `
 Usage: mod <command>
