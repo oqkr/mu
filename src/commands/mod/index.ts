@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import { Command, CommandContainer, runCommand } from '../../command';
 import log from '../../log';
-import { allowedToUse } from '../../utils';
+import { isAllowed } from '../../utils';
 
 import kick from './kick';
 import warn from './warn';
@@ -22,7 +22,7 @@ Users must have moderator role or higher to access this.
 const mod: Command = {
   name: 'mod',
   usage,
-  allowedBy: 'Moderator',
+  allowedRole: 'Moderator',
 
   async run(message: Message, ...args: string[]): Promise<void> {
     if (!args.length || (args.length === 1 && args[0] === 'help')) {
@@ -30,7 +30,7 @@ const mod: Command = {
       return;
     }
     const user = await message.guild.fetchMember(message.author);
-    if (!allowedToUse(user, this)) {
+    if (!isAllowed(user, this)) {
       await message.reply("fuck outta here dude you can't use this");
       return;
     }
