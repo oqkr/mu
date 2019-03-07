@@ -35,6 +35,11 @@ class CommandContainer {
   has(command: string): boolean {
     return this.map.has(command);
   }
+
+  /** Return an iterator over the names of commands in this container. */
+  keys(): Iterator<string> {
+    return this.map.keys();
+  }
 }
 
 export default CommandContainer;
