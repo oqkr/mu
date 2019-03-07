@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import { Command, CommandContainer, runCommand } from '../../command';
 import log from '../../log';
-import { isAllowed } from '../../utils';
+import isAllowed from '../../utils/isAllowed';
 
 import kick from './kick';
 import warn from './warn';

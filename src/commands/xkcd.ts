@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import { get } from 'got';
 
 import { Command } from '../command';
-import { randomInt } from '../utils';
+import randomInt from '../utils/randomInt';
 
 const usage = `
 Usage: xkcd [ id | search_term | "latest" | "random" ]
