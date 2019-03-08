@@ -4,7 +4,6 @@ import Command from '../../command/Command';
 import CommandContainer from '../../command/CommandContainer'
 import runCommand from '../../command/runCommand'
 import log from '../../log';
-import isAllowed from '../../utils/isAllowed';
 
 import ban from './ban';
 import kick from './kick';
@@ -31,11 +30,6 @@ const mod: Command = {
   async run(message: Message, ...args: string[]): Promise<void> {
     if (!args.length || (args.length === 1 && args[0] === 'help')) {
       await message.channel.send(`\`\`\`${usage}\`\`\``);
-      return;
-    }
-    const user = await message.guild.fetchMember(message.author);
-    if (!isAllowed(user, this)) {
-      await message.reply("fuck outta here dude you can't use this");
       return;
     }
     const [command, ...args2] = args;
