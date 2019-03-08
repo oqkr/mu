@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 import Command from '../../command/Command';
-import CommandContainer from '../../command/CommandContainer'
+import Commands from '../../command/Commands'
 import runCommand from '../../command/runCommand'
 import log from '../../log';
 
@@ -10,7 +10,7 @@ import kick from './kick';
 import unban from './unban';
 import warn from './warn';
 
-const commands = new CommandContainer(ban, kick, unban, warn);
+const commands = new Commands(ban, kick, unban, warn);
 
 const usage = `
 Usage: mod <command>
@@ -28,7 +28,7 @@ const mod: Command = {
   allowedRole: 'Moderator',
 
   async run(message: Message, ...args: string[]): Promise<void> {
-    if (!args.length || (args.length === 1 && args[0] === 'help')) {
+    if (!args.length || args[0] === 'help') {
       await message.channel.send(`\`\`\`${usage}\`\`\``);
       return;
     }
