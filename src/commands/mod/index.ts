@@ -1,7 +1,7 @@
 import { Message } from 'discord.js';
 
 import Command from '../../command/Command';
-import Commands from '../../command/Commands'
+import CommandMap from '../../command/CommandMap'
 import runCommand from '../../command/runCommand'
 import log from '../../log';
 
@@ -10,7 +10,7 @@ import kick from './kick';
 import unban from './unban';
 import warn from './warn';
 
-const commands = new Commands(ban, kick, unban, warn);
+const commands = new CommandMap(ban, kick, unban, warn);
 
 const usage = `
 Usage: mod <command>

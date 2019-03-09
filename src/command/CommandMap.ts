@@ -12,11 +12,11 @@ Displays usage for the named command.
 `;
 
 /** A Map-like container of commands indexed by name. */
-export default class Commands implements CommandContainer {
+export default class CommandMap implements CommandContainer {
   private readonly map: Map<string, Command> = new Map();
 
   /**
-   * Creates a Commands and generates a help command for its items.
+   * Creates a CommandMap and generates a help command for its items.
    * @param helpUsage A usage message for the help command (defaults to
    *     defaultHelpUsage).
    * @param commands The commands to add.
@@ -24,7 +24,7 @@ export default class Commands implements CommandContainer {
   constructor(helpUsage: string, ...commands: Command[]);
 
   /**
-   * Creates a Commands and generates a help command for its items.
+   * Creates a CommandMap and generates a help command for its items.
    * @param commands The commands to add.
    */
   constructor(...commands: Command[]);
