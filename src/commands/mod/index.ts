@@ -14,7 +14,11 @@ Invokes one of the registered moderation commands.
 Users must have moderator role or higher to access this.
 `;
 
-const subcommands = [ban, kick, unban, warn];
-const mod = new SuperCommand(subcommands, 'mod', usage, 'Moderator');
+const mod = new SuperCommand({
+  name: 'mod',
+  usage: usage,
+  allowedRole: 'Moderator',
+  subcommands: [ban, kick, unban, warn],
+});
 
 export default mod;

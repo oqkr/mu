@@ -54,6 +54,7 @@
     "interface-name": [true, "never-prefix"],
     "interface-over-type-literal": false,
     "no-parameter-properties": false,
+    "object-literal-shorthand": false,
     "object-literal-sort-keys": false,
 
     // tslint: formatting

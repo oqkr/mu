@@ -7,25 +7,43 @@ import CommandContainer from './CommandContainer';
 import CommandMap from './CommandMap';
 import runCommand from './runCommand';
 
+/** Arguments for SuperCommand constructor */
+type Params = {
+  /** Canonical name of the command. */
+  name: string;
+
+  /** Command usage info to format as help messages. */
+  usage: string;
+
+  /** The lowest role that can use the command (see {@link Command}). */
+  allowedRole?: string;
+
+  /**
+   * IDs of users who can always use this command regardless of role
+   * (see {@link Command}).
+   */
+  allowedUsers?: string[];
+
+  /** List of commands to add. */
+  subcommands?: Command[];
+};
+
 /** A command that contains other commands as subcommands. */
 export default class SuperCommand implements Command {
+  readonly name: string;
+  readonly usage: string;
+  readonly allowedRole?: string;
+  readonly allowedUsers?: string[];
   private readonly subcommands: CommandContainer;
 
-  constructor(
-    subcommands: Command[],
-    /** Canonical name of the command. */
-    readonly name: string,
-    /** Command usage info to format as help messages. */
-    readonly usage: string,
-    /** The lowest role that can use the command (see {@link Command}). */
-    readonly allowedRole?: string,
-    /**
-     * IDs of users who can always use this command regardless of role
-     * (see {@link Command}).
-     */
-    readonly allowedUsers?: string[]
-  ) {
-    this.subcommands = new CommandMap(usage, ...subcommands);
+  constructor(params: Params) {
+    this.name = params.name;
+    this.usage = params.usage;
+    this.allowedRole = params.allowedRole;
+    this.subcommands = new CommandMap(
+      this.usage,
+      ...(params.subcommands || [])
+    );
   }
 
   /**
@@ -43,4 +61,3 @@ export default class SuperCommand implements Command {
     }
   }
 }
-
