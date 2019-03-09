@@ -15,7 +15,7 @@ class Bot extends Client {
    * @returns The token used.
    */
   async login(token?: string): Promise<string> {
-    return super.login(token || this.config.token);
+    return super.login(token || this.config.token || process.env['MU_TOKEN']);
   }
 }
 
