@@ -81,8 +81,11 @@ async function handleName(message: Message): Promise<boolean> {
     : new RegExp(`\\b${bot.user.username}\\b`, 'i');
   if (!re.test(message.content)) return false;
 
-  // TODO: Send response from Cleverbot API.
-  await message.channel.send(`shut the fuck up, ${message.author}`);
+  if (!bot.hasChatProvider()) {
+    await message.channel.send(`shut the fuck up, ${message.author}`);
+    return true;
+  }
+  await bot.chat(message);
   return true;
 }
 

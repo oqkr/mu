@@ -1,11 +1,18 @@
 import { Message } from 'discord.js';
 
+import Cleverbot from './apis/cleverbot.io';
 import Bot from './Bot.js';
 import Config from './Config.js';
 import handleMessage from './eventHandlers/handleMessage';
 import log from './log.js';
 
-const bot = new Bot(Config.fromFile());
+const config = Config.fromFile();
+const bot = new Bot({ config });
+
+if (config.cleverbot.user && config.cleverbot.key) {
+  const cleverbot = new Cleverbot(config.cleverbot.user, config.cleverbot.key);
+  bot.setChatProvider(cleverbot);
+}
 
 bot.on('ready', () => log.success('Bot online and ready'));
 bot.on('message', (message: Message) => log.debug(`Got message: ${message}`));

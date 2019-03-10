@@ -1,11 +1,23 @@
-import { Client, ClientOptions } from 'discord.js';
+import { Client, ClientOptions, Message } from 'discord.js';
 
 import Config from './Config';
+import { ChatProvider } from './providers';
 
-/** Wraps a Discord#Client to add a Config. */
+type Options = {
+  config: Config;
+  chatProvider?: ChatProvider;
+  options?: ClientOptions;
+};
+
+/** Adds Mu-specific features to a Discord#Client. */
 class Bot extends Client {
-  constructor(readonly config: Config, options: ClientOptions = {}) {
-    super(options);
+  readonly config: Config;
+  private chatProvider?: ChatProvider;
+
+  constructor(options: Options) {
+    super(options.options || {});
+    this.config = options.config;
+    this.chatProvider = options.chatProvider;
   }
 
   /**
@@ -16,6 +28,25 @@ class Bot extends Client {
    */
   async login(token?: string): Promise<string> {
     return super.login(token || this.config.token);
+  }
+
+  /** Sends a conversational reply to a message if a chat provider is set. */
+  async chat(message: Message): Promise<void> {
+    if (!this.chatProvider) return;
+    message.channel.startTyping();
+    try {
+      await message.reply(await this.chatProvider.chat(message.cleanContent));
+    } finally {
+      message.channel.stopTyping();
+    }
+  }
+
+  setChatProvider(provider: ChatProvider): void {
+    this.chatProvider = provider;
+  }
+
+  hasChatProvider(): boolean {
+    return this.chatProvider !== undefined;
   }
 }
 
