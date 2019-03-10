@@ -30,6 +30,7 @@ class Cleverbot {
     }: Response = await post(url, {
       form: true,
       json: true,
+      throwHttpErrors: false,
       timeout,
       body: {
         user: this.user,
@@ -55,6 +56,7 @@ class Cleverbot {
     }: Response = await post(url, {
       form: true,
       json: true,
+      throwHttpErrors: false,
       timeout,
       body: {
         user: this.user,
@@ -70,7 +72,7 @@ class Cleverbot {
       this.isReady = true;
       return;
     }
-    throw new Error(`cleverbot: ${url}: could not initialize session`);
+    throw new Error(`cleverbot: ${url}: could not init session: ${status}`);
   }
 }
 
