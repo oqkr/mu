@@ -1,5 +1,7 @@
 import { post } from 'got';
 
+import { ChatProvider } from '../providers';
+
 const baseURL = 'https://cleverbot.io/1.0';
 const timeout = 60000; // 60 seconds
 
@@ -11,7 +13,7 @@ type Response = {
 };
 
 /** A client for the Cleverbot.io API. */
-class Cleverbot {
+class Cleverbot implements ChatProvider {
   private isReady: boolean = false;
 
   constructor(
