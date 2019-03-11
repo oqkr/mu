@@ -15,6 +15,7 @@
       ]
     },
     "member-ordering": [true, { "order": "fields-first" }],
+    "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
     "only-arrow-functions": [true, "allow-declarations"],
     "typedef": [
       true,
@@ -45,7 +46,7 @@
       "enum-members",
       "functions",
       "interfaces",
-      "methods",
+      // "methods",
       "namespaces"
       // "properties"
       // "types"
