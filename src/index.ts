@@ -1,20 +1,20 @@
 import Cleverbot from './apis/cleverbot.io';
-import Bot from './Bot.js';
-import Config from './Config.js';
+import Config from './Config';
 import handleMessage from './eventHandlers/onMessage';
 import handleReady from './eventHandlers/onReady';
-import log from './log.js';
+import log from './log';
+import Mu from './Mu';
 
 const config = Config.fromFile();
-const bot = new Bot({ config });
+const mu = new Mu({ config });
 
 if (config.cleverbot.user && config.cleverbot.key) {
   const cleverbot = new Cleverbot(config.cleverbot.user, config.cleverbot.key);
-  bot.setChatProvider(cleverbot);
+  mu.setChatProvider(cleverbot);
 }
 
-bot.on('ready', handleReady);
-bot.on('message', handleMessage);
-bot.on('error', log.error);
+mu.on('ready', handleReady);
+mu.on('message', handleMessage);
+mu.on('error', log.error);
 
-bot.login().catch(log.fatal);
+mu.login().catch(log.fatal);

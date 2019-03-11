@@ -5,7 +5,7 @@ import isAllowed from '../utils/isAllowed';
 import CommandContainer from './CommandContainer';
 
 /**
- * Run a bot command if it exists in the current context.
+ * Runs a bot command if it exists in the current context.
  *
  * @param message The message that invoked this command.
  * @param commands All the commands that are available in the current context.

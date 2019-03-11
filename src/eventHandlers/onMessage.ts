@@ -1,10 +1,10 @@
 import { Message } from 'discord.js';
 import { split } from 'shlex';
 
-import Bot from '../Bot';
 import runCommand from '../command/runCommand';
 import commands from '../commands';
 import log from '../log';
+import Mu from '../Mu';
 
 /** The type for handler functions in this module. */
 type MessageHandler = (message: Message) => Promise<boolean>;
@@ -15,8 +15,8 @@ type MessageHandler = (message: Message) => Promise<boolean>;
  * @returns True if the event is now considered handled.
  */
 async function handleMessage(message: Message): Promise<boolean> {
-  const bot = message.client as Bot;
-  if (bot.user.id === message.author.id) return true;
+  const mu = message.client as Mu;
+  if (mu.user.id === message.author.id) return true;
 
   const handlers: MessageHandler[] = [
     logMessage,
@@ -41,8 +41,8 @@ async function handleMessage(message: Message): Promise<boolean> {
  * @returns True if the event is now considered handled.
  */
 async function handleCommand(message: Message): Promise<boolean> {
-  const bot = message.client as Bot;
-  const re = new RegExp(`^${bot.config.prefix}|^<@!?${bot.user.id}>`);
+  const mu = message.client as Mu;
+  const re = new RegExp(`^${mu.config.prefix}|^<@!?${mu.user.id}>`);
   if (!re.test(message.content)) return false;
 
   const words = split(message.content.replace(re, ''));
@@ -67,8 +67,8 @@ async function handleCommand(message: Message): Promise<boolean> {
  * @returns True if the event is now considered handled.
  */
 async function handleMention(message: Message): Promise<boolean> {
-  const bot = message.client as Bot;
-  const re = new RegExp(`<@!?${bot.user.id}>`);
+  const mu = message.client as Mu;
+  const re = new RegExp(`<@!?${mu.user.id}>`);
   if (!re.test(message.content)) return false;
 
   await chat(message);
@@ -82,14 +82,14 @@ async function handleMention(message: Message): Promise<boolean> {
  * @returns True if the event is now considered handled.
  */
 async function handleName(message: Message): Promise<boolean> {
-  const bot = message.client as Bot;
+  const mu = message.client as Mu;
   let nickname: string | undefined;
   if (message.guild && message.guild.available) {
-    ({ nickname } = await message.guild.fetchMember(bot.user));
+    ({ nickname } = await message.guild.fetchMember(mu.user));
   }
   const re = nickname
-    ? new RegExp(`\\b(${bot.user.username}|${nickname})\\b`, 'i')
-    : new RegExp(`\\b${bot.user.username}\\b`, 'i');
+    ? new RegExp(`\\b(${mu.user.username}|${nickname})\\b`, 'i')
+    : new RegExp(`\\b${mu.user.username}\\b`, 'i');
   if (!re.test(message.content)) return false;
 
   await chat(message);
@@ -110,12 +110,12 @@ async function logMessage(message: Message): Promise<boolean> {
 
 /** Sends a conversational reply to message. */
 async function chat(message: Message): Promise<void> {
-  const bot = message.client as Bot;
-  if (!bot.hasChatProvider()) {
+  const mu = message.client as Mu;
+  if (!mu.hasChatProvider()) {
     await message.channel.send(`shut the fuck up, ${message.author}`);
     return;
   }
-  await bot.chat(message);
+  await mu.chat(message);
 }
 
 export default handleMessage;

@@ -11,7 +11,7 @@ type Options = {
 };
 
 /** Adds Mu-specific features to a Discord#Client. */
-class Bot extends Client {
+class Mu extends Client {
   readonly config: Config;
   private chatProvider?: ChatProvider;
 
@@ -52,4 +52,4 @@ class Bot extends Client {
   }
 }
 
-export default Bot;
+export default Mu;
