@@ -2,6 +2,7 @@ import Cleverbot from './apis/cleverbot.io';
 import Bot from './Bot.js';
 import Config from './Config.js';
 import handleMessage from './eventHandlers/onMessage';
+import handleReady from './eventHandlers/onReady';
 import log from './log.js';
 
 const config = Config.fromFile();
@@ -12,7 +13,7 @@ if (config.cleverbot.user && config.cleverbot.key) {
   bot.setChatProvider(cleverbot);
 }
 
-bot.on('ready', () => log.success('Bot online and ready'));
+bot.on('ready', handleReady);
 bot.on('message', handleMessage);
 bot.on('error', log.error);
 
