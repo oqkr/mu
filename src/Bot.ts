@@ -1,6 +1,7 @@
 import { Client, ClientOptions, Message } from 'discord.js';
 
 import Config from './Config';
+import log from './log';
 import { ChatProvider } from './providers';
 
 type Options = {
@@ -27,6 +28,7 @@ class Bot extends Client {
    * @returns The token used.
    */
   async login(token?: string): Promise<string> {
+    log.pending('Bot logging in …');
     return super.login(token || this.config.token);
   }
 

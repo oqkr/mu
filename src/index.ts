@@ -17,5 +17,4 @@ bot.on('ready', handleReady);
 bot.on('message', handleMessage);
 bot.on('error', log.error);
 
-log.pending('Bot logging in …');
 bot.login().catch(log.fatal);
