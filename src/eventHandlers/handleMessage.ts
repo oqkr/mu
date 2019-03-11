@@ -6,11 +6,11 @@ import runCommand from '../command/runCommand';
 import commands from '../commands';
 import log from '../log';
 
-/** The type of all functions in this module. */
+/** The type for handler functions in this module. */
 type MessageHandler = (message: Message) => Promise<boolean>;
 
 /**
- * Handles a message event by delegating to relevant subhandler.
+ * Handles message event by delegating to a relevant subhandler.
  * @param message The message from the message event.
  * @returns True if the event is now considered handled.
  */
@@ -63,11 +63,10 @@ async function handleCommand(message: Message): Promise<boolean> {
  */
 async function handleMention(message: Message): Promise<boolean> {
   const bot = message.client as Bot;
-  const re = new RegExp(`<@${bot.user.id}>`);
+  const re = new RegExp(`<@!?${bot.user.id}>`);
   if (!re.test(message.content)) return false;
 
-  // TODO: Send a command-usage message instead once we have one.
-  await message.channel.send("that's not how you use commands, fuckwad");
+  await chat(message);
   return true;
 }
 
@@ -88,12 +87,18 @@ async function handleName(message: Message): Promise<boolean> {
     : new RegExp(`\\b${bot.user.username}\\b`, 'i');
   if (!re.test(message.content)) return false;
 
+  await chat(message);
+  return true;
+}
+
+/** Sends a conversational reply to message. */
+async function chat(message: Message): Promise<void> {
+  const bot = message.client as Bot;
   if (!bot.hasChatProvider()) {
     await message.channel.send(`shut the fuck up, ${message.author}`);
-    return true;
+    return;
   }
   await bot.chat(message);
-  return true;
 }
 
 export default handleMessage;
