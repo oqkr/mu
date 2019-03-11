@@ -101,4 +101,4 @@ async function chat(message: Message): Promise<void> {
   await bot.chat(message);
 }
 
-export default handleMessage;
+export { handleMessage };

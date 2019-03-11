@@ -3,7 +3,7 @@ import { Message } from 'discord.js';
 import Cleverbot from './apis/cleverbot.io';
 import Bot from './Bot.js';
 import Config from './Config.js';
-import handleMessage from './eventHandlers/handleMessage';
+import { handleMessage } from './eventHandlers/onMessage';
 import log from './log.js';
 
 const config = Config.fromFile();
