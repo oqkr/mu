@@ -19,7 +19,14 @@ async function handleMessage(message: Message): Promise<boolean> {
   if (bot.user.id === message.author.id) return true;
 
   const handlers: MessageHandler[] = [handleCommand, handleMention, handleName];
-  for (const handle of handlers) if (await handle(message)) return true;
+  for (const handle of handlers) {
+    try {
+      if (await handle(message)) return true;
+    } catch (err) {
+      log.error(`caught exception running handler \`${handle.name}\`: ${err}`);
+      return false;
+    }
+  }
   return false;
 }
 
