@@ -18,7 +18,12 @@ async function handleMessage(message: Message): Promise<boolean> {
   const bot = message.client as Bot;
   if (bot.user.id === message.author.id) return true;
 
-  const handlers: MessageHandler[] = [handleCommand, handleMention, handleName];
+  const handlers: MessageHandler[] = [
+    logMessage,
+    handleCommand,
+    handleMention,
+    handleName,
+  ];
   for (const handle of handlers) {
     try {
       if (await handle(message)) return true;
@@ -91,6 +96,18 @@ async function handleName(message: Message): Promise<boolean> {
   return true;
 }
 
+/**
+ * Logs message event at log-level debug.
+ *
+ * Logging an event should never mark it handled, so this always returns false.
+ * @param message The message from the message event.
+ * @returns True if the event is now considered handled.
+ */
+async function logMessage(message: Message): Promise<boolean> {
+  log.debug(`Got message: ${message}`);
+  return false;
+}
+
 /** Sends a conversational reply to message. */
 async function chat(message: Message): Promise<void> {
   const bot = message.client as Bot;
@@ -101,4 +118,4 @@ async function chat(message: Message): Promise<void> {
   await bot.chat(message);
 }
 
-export { handleMessage };
+export default handleMessage;
