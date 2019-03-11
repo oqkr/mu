@@ -40,6 +40,7 @@ async function run(message: Message, ...args: string[]): Promise<void> {
       return;
     }
   }
+  // Nothing else worked, so try to use what we got as a search string.
   const id2 = await searchForComicID(args.join(' '));
   await message.channel.send(`${url}/${id2}`);
 }
