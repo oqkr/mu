@@ -20,7 +20,6 @@
   "license": "MIT",
   "dependencies": {
     "@discordjs/uws": "^11.149.1",
-    "benchmark": "^2.1.4",
     "discord.js": "^11.4.2",
     "erlpack": "discordapp/erlpack",
     "got": "^9.6.0",
