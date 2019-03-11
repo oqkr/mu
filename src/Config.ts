@@ -38,7 +38,6 @@ class Config {
    * If str is given, this creates a Config from parsing str as the contents
    * of a TOML config file then merges any values present in the environment,
    * with values from the environment overriding those from the file.
-   *
    * @param str The contents of a TOML config file.
    */
   private constructor(str?: string) {
