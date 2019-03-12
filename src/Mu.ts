@@ -21,12 +21,7 @@ class Mu extends Client {
     this.chatProvider = options.chatProvider;
   }
 
-  /**
-   * Logs in using Discord#Client.login.
-   * @param token A Discord API token. If not supplied, this uses a token from
-   *     this.config if present.
-   * @returns The token used.
-   */
+  /** Logs in using Discord#Client.login. */
   async login(token?: string): Promise<string> {
     log.pending('Bot logging in …');
     return super.login(token || this.config.token);
