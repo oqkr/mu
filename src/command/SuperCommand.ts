@@ -8,7 +8,7 @@ import CommandMap from './CommandMap';
 import runCommand from './runCommand';
 
 /** Arguments for SuperCommand constructor */
-type Params = {
+export type Params = {
   /** Canonical name of the command. */
   name: string;
 

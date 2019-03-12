@@ -1,4 +1,4 @@
-import SuperCommand from '../../command/SuperCommand';
+import ModCommand from '../../command/ModCommand';
 
 import ban from './ban';
 import kick from './kick';
@@ -14,7 +14,7 @@ Invokes one of the registered moderation commands.
 Users must have moderator role or higher to access this.
 `;
 
-const mod = new SuperCommand({
+const mod = new ModCommand({
   name: 'mod',
   usage: usage,
   allowedRole: 'Moderator',
