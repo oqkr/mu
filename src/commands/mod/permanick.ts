@@ -102,7 +102,7 @@ function parsePermanickArgs(...args: string[]): ParsedPermanickArgs {
     alias: { d: 'duration', r: 'remove' },
     default: { duration: '0', remove: false },
     string: ['d', 'duration', '_'],
-    boolean: ['r', 'reason'],
+    boolean: ['r', 'remove'],
   });
   const durationInMinutes = parseInt(
     typeof argv.duration === 'string'
