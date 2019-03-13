@@ -1,27 +1,23 @@
 import { Guild, GuildMember } from 'discord.js';
 
 /**
- * Return a user ID from input string.
- * @param mention A user mention or user ID.
- * @example
- * // Get user from nickname mention (returns 123456789987654321).
- * userIDFromString(guild, '<@!123456789987654321>')
+ * Resolves a user mention to a user ID.
+ *
+ * (If input is already a user ID, this just returns it.)
+ * @throws If mentionOrID cannot be converted to a well-formed user ID.
  */
-export function userIDFromString(mention: string): string {
-  return mention.replace(/[<@!>]/g, '');
+export function userIDFromString(mentionOrID: string): string {
+  const id = mentionOrID.replace(/[<@!>]/g, '');
+  if (!/^\d{17,}$/.test(id)) {
+    throw new Error(`invalid user ID \`${mentionOrID}\``);
+  }
+  return id;
 }
 
-/**
- * Return User from input string.
- * @param guild The guild to search in
- * @param mention A user mention or user ID.
- * @example
- * // Get user by nickname mention.
- * guildMemberFromString(guild, '<@!123456789987654321>');
- */
+/** Resolves a user ID or a user mention to a GuildMember. */
 export async function guildMemberFromString(
   guild: Guild,
-  mention: string
+  mentionOrID: string
 ): Promise<GuildMember> {
-  return guild.fetchMember(userIDFromString(mention));
+  return guild.fetchMember(userIDFromString(mentionOrID));
 }
