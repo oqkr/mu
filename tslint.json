@@ -6,27 +6,12 @@
   "jsRules": {},
   "rules": {
     // tslint: type-script specific
-    "member-access": {
-      "options": [
-        "no-public",
-        "check-accessor",
-        "check-constructor",
-        "check-parameter-property"
-      ]
-    },
+    "member-access": false,
     "member-ordering": [true, { "order": "fields-first" }],
     "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+    "no-magic-numbers": false,
     "only-arrow-functions": [true, "allow-declarations"],
-    "typedef": [
-      true,
-      "call-signature",
-      "arrow-call-signature",
-      "parameter",
-      "arrow-parameter",
-      "property-declaration",
-      // omitted: variable-declaration
-      "member-variable-declaration"
-    ],
+    "typedef": false,
 
     // tslint: functionality
     "curly": [true, "ignore-same-line"],
@@ -39,18 +24,7 @@
 
     // tslint: style
     "comment-format": false,
-    "completed-docs": [
-      true,
-      "classes",
-      "enums",
-      "enum-members",
-      "functions",
-      "interfaces",
-      // "methods",
-      "namespaces"
-      // "properties"
-      // "types"
-    ],
+    "completed-docs": false,
     "file-name-casing": [false, "camel-case"],
     "interface-name": [true, "never-prefix"],
     "interface-over-type-literal": false,
