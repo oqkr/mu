@@ -5,7 +5,7 @@ import Command from '../../command/Command';
 import { guildMemberFromString } from '../../utils/user';
 
 const usage = `
-Usage: mod ban [options] { user_id | user_mention }
+Usage: mod ban [options] user [user...]
 
 Bans users from the server.
 
