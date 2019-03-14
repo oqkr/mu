@@ -23,7 +23,7 @@ Examples:
   @mu mod permanick --remove @user
 `;
 
-const stickyNickMap: Map<UserID, StickyNick> = new Map();
+const stickyNicks: Map<UserID, StickyNick> = new Map();
 
 type UserID = string;
 
@@ -62,12 +62,12 @@ async function runPermanickCommand(message: Message, ...args: string[]) {
 
   for (const userID of userIDs) {
     const member = await guild.fetchMember(userID);
-    const stickyNick = stickyNickMap.get(userID);
+    const stickyNick = stickyNicks.get(userID);
 
     if (stickyNick) {
       if (stickyNick.timeout) clearTimeout(stickyNick.timeout);
       mu.off(eventName, stickyNick.handler);
-      stickyNickMap.delete(userID);
+      stickyNicks.delete(userID);
     }
     if (inRemoveMode) {
       await member.setNickname('');
@@ -82,22 +82,22 @@ async function runPermanickCommand(message: Message, ...args: string[]) {
     if (durationInMinutes) {
       timeout = setTimeout(async () => {
         mu.off(eventName, handler);
-        stickyNickMap.delete(userID);
+        stickyNicks.delete(userID);
         await member.setNickname('');
       }, durationInMinutes * 60 * 1000);
     }
-    stickyNickMap.set(userID, { handler, timeout });
+    stickyNicks.set(userID, { handler, timeout });
   }
 }
 
-type ParsedPermanickArgs = {
+type PermanickArgs = {
   inRemoveMode: boolean;
   durationInMinutes: number;
   nickname: string;
   userIDs: string[];
 };
 
-function parsePermanickArgs(...args: string[]): ParsedPermanickArgs {
+function parsePermanickArgs(...args: string[]): PermanickArgs {
   const argv = minimist(args, {
     alias: { d: 'duration', r: 'remove' },
     default: { duration: '0', remove: false },
