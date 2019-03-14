@@ -17,8 +17,7 @@ Example:
   @mu mod ban --reason "watches pewdiepie" @user1 @user2 @user3
 `;
 
-/** Main entry point for ban command. */
-async function run(message: Message, ...args: string[]): Promise<void> {
+async function runBanCommand(message: Message, ...args: string[]) {
   const argv = minimist(args, {
     alias: { r: 'reason', d: ['days-to-delete', 'days'] },
     default: { reason: 'fuck off, jabroni', 'days-to-delete': '0' },
@@ -26,9 +25,13 @@ async function run(message: Message, ...args: string[]): Promise<void> {
   });
 
   const reason =
-    typeof argv.r === 'string' ? argv.r : (argv.r as string[]).pop();
+    typeof argv.reason === 'string'
+      ? argv.reason
+      : (argv.reason as string[]).pop();
   const days = parseInt(
-    (typeof argv.d === 'string' ? argv.d : (argv.d as string[]).pop()) || '',
+    typeof argv.days === 'string'
+      ? argv.days
+      : (argv.days as string[]).pop() || '',
     10
   );
   const users = argv._;
@@ -51,6 +54,11 @@ async function run(message: Message, ...args: string[]): Promise<void> {
 }
 
 /** Bans a user from the server. */
-const ban: Command = { name: 'ban', allowedRole: 'Moderator', usage, run };
+const ban: Command = {
+  name: 'ban',
+  usage: usage,
+  allowedRole: 'Moderator',
+  run: runBanCommand,
+};
 
 export default ban;
