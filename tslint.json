@@ -15,6 +15,7 @@
 
     // tslint: functionality
     "curly": [true, "ignore-same-line"],
+    "no-this-assignment": [true, { "allow-destructuring": true }],
     "no-void-expression": [true, "ignore-arrow-function-shorthand"],
     "strict-boolean-expressions": false,
 
