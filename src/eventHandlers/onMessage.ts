@@ -5,6 +5,7 @@ import runCommand from '../command/runCommand';
 import commands from '../commands';
 import log from '../log';
 import Mu from '../Mu';
+import { isOnlyWhitespace } from '../utils';
 
 /** The type for handler functions in this module. */
 type MessageHandler = (message: Message) => Promise<boolean>;
@@ -46,8 +47,7 @@ async function handleCommand(message: Message): Promise<boolean> {
   if (!re.test(message.content)) return false;
 
   const words = split(message.content.replace(re, ''));
-  if (words.every((word: string): boolean => /^\s*$/.test(word))) {
-    // words is empty or all its elements are whitespace.
+  if (words.every(isOnlyWhitespace)) {
     await message.channel.send('the fuck you want?');
     return true;
   }

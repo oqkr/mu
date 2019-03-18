@@ -22,6 +22,14 @@ export async function guildMemberFromString(
   return guild.fetchMember(userIDFromString(mentionOrID));
 }
 
+export function isNotOnlyWhitespace(str: string): boolean {
+  return !isOnlyWhitespace(str);
+}
+
+export function isOnlyWhitespace(str: string): boolean {
+  return /^\s*$/.test(str);
+}
+
 /** Get a random integer between two values, inclusive of both bounds. */
 export const randomInt = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min;
