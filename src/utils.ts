@@ -7,8 +7,8 @@ export function convertMinimistArgToString(arg: unknown): string {
     return '';
   } else if (typeof arg === 'string') {
     return arg;
-  } else if (Object.getPrototypeOf(arg) === Array.prototype) {
-    return convertMinimistArgToString((arg as unknown[]).pop());
+  } else if (Array.isArray(arg)) {
+    return convertMinimistArgToString(arg.pop());
   } else {
     throw new Error('arg is not a string or an array of strings');
   }
