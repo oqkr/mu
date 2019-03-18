@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import * as minimist from 'minimist';
 
 import Command from '../../command/Command';
-import { guildMemberFromString } from '../../utils/user';
+import { guildMemberFromString } from '../../utils';
 
 const usage = `
 Usage: mod kick [options] { user_id | user_mention }

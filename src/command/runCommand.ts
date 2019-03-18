@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 
-import isAllowed from '../utils/isAllowed';
+import isAllowed from '../isAllowed';
 
 import CommandContainer from './CommandContainer';
 

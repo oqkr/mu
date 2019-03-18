@@ -1,6 +1,6 @@
 import { GuildMember, Role, User } from 'discord.js';
 
-import Command from '../command/Command';
+import Command from './command/Command';
 
 /**
  * Returns true if a user has permission to run a given command.
@@ -18,7 +18,10 @@ import Command from '../command/Command';
  *    - **Allow** if user ID matches one of the IDs in command.allowedUsers.
  *    - **Deny** otherwise.
  */
-function isAllowed(user: GuildMember | User, command: Command): boolean {
+export default function isAllowed(
+  user: GuildMember | User,
+  command: Command
+): boolean {
   // If user is type User, this is a DM.
   return user instanceof User
     ? isAllowedByUser(user, command)
@@ -53,5 +56,3 @@ function isAllowedByRole(user: GuildMember, command: Command): boolean {
   if (!role) return false;
   return user.highestRole.comparePositionTo(role) >= 0;
 }
-
-export default isAllowed;

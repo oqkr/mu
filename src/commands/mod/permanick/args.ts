@@ -1,6 +1,6 @@
 import * as minimist from 'minimist';
 
-import { userIDFromString } from '../../../utils/user';
+import { userIDFromString } from '../../../utils';
 
 interface PositionalArgv {
   nickname: string;

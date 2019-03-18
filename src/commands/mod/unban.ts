@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import * as minimist from 'minimist';
 
 import Command from '../../command/Command';
-import { userIDFromString } from '../../utils/user';
+import { userIDFromString } from '../../utils';
 
 const usage = `
 Usage: mod unban [options] { user_id | user_mention }
