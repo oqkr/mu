@@ -1,4 +1,4 @@
-import { Client, ClientOptions, Message } from 'discord.js';
+import * as discord from 'discord.js';
 
 import Config from './Config';
 import log from './log';
@@ -7,11 +7,10 @@ import { ChatProvider } from './providers';
 type Options = {
   config: Config;
   chatProvider?: ChatProvider;
-  options?: ClientOptions;
+  options?: discord.ClientOptions;
 };
 
-/** Adds Mu-specific features to a Discord#Client. */
-class Mu extends Client {
+class Mu extends discord.Client {
   readonly config: Config;
   private chatProvider?: ChatProvider;
 
@@ -21,29 +20,29 @@ class Mu extends Client {
     this.chatProvider = options.chatProvider;
   }
 
-  /** Logs in using Discord#Client.login. */
-  async login(token?: string): Promise<string> {
-    log.pending('Bot logging in …');
-    return super.login(token || this.config.token);
-  }
-
   /** Sends a conversational reply to a message if a chat provider is set. */
-  async chat(message: Message): Promise<void> {
+  async chat(message: discord.Message): Promise<void> {
     if (!this.chatProvider) return;
     message.channel.startTyping();
     try {
-      await message.reply(await this.chatProvider.chat(message.cleanContent));
+      const reply = await this.chatProvider.chat(message.cleanContent);
+      await message.channel.send(reply);
     } finally {
       message.channel.stopTyping();
     }
   }
 
-  setChatProvider(provider: ChatProvider): void {
-    this.chatProvider = provider;
-  }
-
   hasChatProvider(): boolean {
     return this.chatProvider !== undefined;
+  }
+
+  async login(token?: string): Promise<string> {
+    log.pending('Bot logging in …');
+    return super.login(token || this.config.token);
+  }
+
+  setChatProvider(provider: ChatProvider): void {
+    this.chatProvider = provider;
   }
 }
 
