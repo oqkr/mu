@@ -1,5 +1,19 @@
 import { Guild, GuildMember } from 'discord.js';
 
+export function convertMinimistArgToString(arg: unknown): string {
+  // A bug in tslint incorrectly flags this line.
+  // tslint:disable-next-line:strict-type-predicates
+  if (typeof arg === 'undefined') {
+    return '';
+  } else if (typeof arg === 'string') {
+    return arg;
+  } else if (Object.getPrototypeOf(arg) === Array.prototype) {
+    return convertMinimistArgToString((arg as unknown[]).pop());
+  } else {
+    throw new Error('arg is not a string or an array of strings');
+  }
+}
+
 /** Resolves a user ID or a user mention to a GuildMember. */
 export async function guildMemberFromString(
   guild: Guild,

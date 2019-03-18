@@ -2,7 +2,10 @@ import { Message } from 'discord.js';
 import * as minimist from 'minimist';
 
 import Command from '../../command/Command';
-import { guildMemberFromString } from '../../utils';
+import {
+  convertMinimistArgToString,
+  guildMemberFromString,
+} from '../../utils';
 
 const usage = `
 Usage: mod ban [options] user [user...]
@@ -23,17 +26,8 @@ async function runBanCommand(message: Message, ...args: string[]) {
     default: { reason: 'fuck off, jabroni', 'days-to-delete': '0' },
     string: ['reason', 'd', 'days', 'days-to-delete', '_'],
   });
-
-  const reason =
-    typeof argv.reason === 'string'
-      ? argv.reason
-      : (argv.reason as string[]).pop();
-  const days = parseInt(
-    typeof argv.days === 'string'
-      ? argv.days
-      : (argv.days as string[]).pop() || '',
-    10
-  );
+  const reason = convertMinimistArgToString(argv.reason);
+  const days = parseInt(convertMinimistArgToString(argv.days), 10);
   const users = argv._;
 
   if (!reason) {

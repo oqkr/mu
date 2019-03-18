@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 import * as minimist from 'minimist';
 
 import Command from '../../command/Command';
-import { guildMemberFromString } from '../../utils';
+import { convertMinimistArgToString, guildMemberFromString } from '../../utils';
 
 const usage = `
 Usage: mod kick [options] { user_id | user_mention }
@@ -23,9 +23,7 @@ async function run(message: Message, ...args: string[]): Promise<void> {
     default: { reason: 'fuck off, jabroni' },
     string: ['reason', 'r', '_'],
   });
-
-  const reason =
-    typeof argv.r === 'string' ? argv.r : (argv.r as string[]).pop();
+  const reason = convertMinimistArgToString(argv.reason);
   const users = argv._;
 
   if (!reason) {

@@ -1,6 +1,6 @@
 import * as minimist from 'minimist';
 
-import { userIDFromString } from '../../../utils';
+import { convertMinimistArgToString, userIDFromString } from '../../../utils';
 
 interface PositionalArgv {
   nickname: string;
@@ -20,9 +20,7 @@ function parseArgs(...args: string[]): Argv {
     boolean: ['r', 'remove'],
   });
   const durationInMinutes = parseInt(
-    typeof minimistArgv.duration === 'string'
-      ? minimistArgv.duration
-      : (minimistArgv.duration as string[]).pop() || '',
+    convertMinimistArgToString(minimistArgv.duration),
     10
   );
   const inRemoveMode = minimistArgv.remove as boolean;
