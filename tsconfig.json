@@ -5,7 +5,6 @@
     "module": "commonjs",
 
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noErrorTruncation": true,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
