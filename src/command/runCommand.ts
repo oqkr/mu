@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 import isAllowed from '../isAllowed';
 
-import CommandContainer from './CommandContainer';
+import CommandMap from './CommandMap';
 
 /**
  * Runs a bot command if it exists in the current context.
@@ -14,27 +14,20 @@ import CommandContainer from './CommandContainer';
  */
 export default async function runCommand(
   message: Message,
-  commands: CommandContainer,
+  commands: CommandMap,
   name: string,
   ...args: string[]
 ): Promise<void> {
-  if (!commands.has(name)) {
-    // TODO: Calculate Levenshtein distance and recommend commands user might
-    // have meant instead of just sending an error.
-    const reply = `\`${name}\` is not a known command, you stupid fuck`;
-    await message.channel.send(reply);
-    return;
-  }
-
+  const command = commands.get(name);
+  // TODO: Calculate Levenshtein distance and recommend commands user might
+  // have meant instead of just throwing an error.
+  if (!command) throw new Error(`\`${name}\` is not a known command`);
   const user =
     message.channel.type === 'text'
       ? await message.guild.fetchMember(message.author)
       : message.author;
-  const command = commands.get(name);
-
   if (!isAllowed(user, command)) {
-    await message.reply("fuck outta here dude you can't use this");
-    return;
+    throw new Error(`${user} not authorized for command \`${name}\``);
   }
   await command.run(message, ...args);
 }

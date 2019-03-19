@@ -1,9 +1,6 @@
 import { Message } from 'discord.js';
 
-import { KeyError } from '../errors';
-
 import Command from './Command';
-import CommandContainer from './CommandContainer';
 
 const defaultHelpUsage = `
 Usage: help <command>
@@ -11,10 +8,9 @@ Usage: help <command>
 Displays usage for the named command.
 `;
 
-/** A Map-like container of commands indexed by name. */
-export default class CommandMap implements CommandContainer {
-  private readonly map: Map<string, Command> = new Map();
-
+/** A Map of Commands indexed by name. */
+export default class CommandMap extends Map<string, Command>
+  implements ReadonlyMap<string, Command> {
   /**
    * Creates a CommandMap and generates a help command for its items.
    * @param helpUsage A usage message for the help command (defaults to
@@ -30,6 +26,7 @@ export default class CommandMap implements CommandContainer {
   constructor(...commands: Command[]);
 
   constructor() {
+    super();
     let commands: Command[];
     let helpUsage = defaultHelpUsage;
     if (typeof arguments[0] === 'string') {
@@ -38,47 +35,20 @@ export default class CommandMap implements CommandContainer {
     } else {
       commands = Array.from(arguments) as Command[];
     }
-    commands.forEach((command: Command) => this.map.set(command.name, command));
-
-    // tslint:disable-next-line:no-this-assignment
-    const that = this;
-
-    this.map.set('help', {
+    commands.push({
       name: 'help',
       usage: helpUsage,
-      async run(message: Message, ...args: string[]): Promise<void> {
-        if (!args.length || args[0] === 'help') {
-          await message.channel.send(`\`\`\`${helpUsage}\`\`\``);
+      run: async (message: Message, ...args: string[]): Promise<void> => {
+        const commandName = args[0];
+        if (!args.length || commandName === 'help') {
+          await message.channel.send(helpUsage, { code: true });
           return;
         }
-        const command = args[0];
-        if (!that.has(command)) {
-          await message.channel.send(`error: no command named \`${command}\``);
-          return;
-        }
-        const reply = `\`\`\`${that.get(command).usage}\`\`\``;
-        await message.channel.send(reply);
+        const command = this.get(commandName);
+        if (!command) throw new Error(`\`${commandName}\` command not found`);
+        await message.channel.send(command.usage, { code: true });
       },
     });
-  }
-
-  /**
-   * Returns the named command.
-   * @throws KeyError if command not found, so always check with `has` first.
-   */
-  get(name: string): Command {
-    const command = this.map.get(name);
-    if (!command) throw new KeyError(`command \`${name}\` not in container`);
-    return command;
-  }
-
-  /** Returns true if the named command is in the container. */
-  has(name: string): boolean {
-    return this.map.has(name);
-  }
-
-  /** Returns an iterator for the names of commands in this container. */
-  keys(): Iterator<string> {
-    return this.map.keys();
+    commands.forEach(command => this.set(command.name, command));
   }
 }

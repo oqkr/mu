@@ -3,10 +3,10 @@ import { Message } from 'discord.js';
 /** Interface for bot commands. */
 export default interface Command {
   /** Canonical name of the command. */
-  name: string;
+  readonly name: string;
 
   /** Command usage info to format as help messages. */
-  usage: string;
+  readonly usage: string;
 
   /**
    * The lowest role that can use the command.
@@ -17,7 +17,7 @@ export default interface Command {
    * role. To allow only the guild owner, use "owner"; to disallow all roles,
    * use "none".
    */
-  allowedRole?: string;
+  readonly allowedRole?: string;
 
   /**
    * The IDs of users who can always use this command regardless of role.
@@ -28,10 +28,10 @@ export default interface Command {
    * direct message), this is the only field that will be checked for access
    * control — so leaving it blank in that case means anyone can run it.
    */
-  allowedUsers?: string[];
+  readonly allowedUsers?: ReadonlyArray<string>;
 
   /**
-   * Runs this command.
+   * Runs the command.
    * @param message The message that invoked this command.
    * @param args Arguments passed to command.
    */
