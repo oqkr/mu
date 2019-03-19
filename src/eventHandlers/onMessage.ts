@@ -29,7 +29,7 @@ async function handleMessage(message: Message): Promise<boolean> {
     try {
       if (await handle(message)) return true;
     } catch (err) {
-      log.error(`caught exception running handler \`${handle.name}\`: ${err}`);
+      log.error(`handleMessage: ${handle.name}: ${err}`);
       return false;
     }
   }
@@ -55,7 +55,7 @@ async function handleCommand(message: Message): Promise<boolean> {
   try {
     await runCommand(message, commands, command, ...args);
   } catch (err) {
-    log.error(`caught exception running ${command}: ${err}`);
+    await message.channel.send(`${err}`);
   }
   return true;
 }
@@ -105,6 +105,7 @@ async function handleName(message: Message): Promise<boolean> {
  */
 async function logMessage(message: Message): Promise<boolean> {
   log.debug(`Got message: ${message}`);
+  log.debug(message);
   return false;
 }
 
