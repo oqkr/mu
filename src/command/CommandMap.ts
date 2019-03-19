@@ -35,20 +35,32 @@ export default class CommandMap extends Map<string, Command>
     } else {
       commands = Array.from(arguments) as Command[];
     }
-    commands.push({
+    commands.push(this.createHelpCommand(helpUsage));
+    commands.forEach(command => this.set(command.name, command));
+  }
+
+  private createHelpCommand(usage: string) {
+    return {
       name: 'help',
-      usage: helpUsage,
+      usage: usage,
       run: async (message: Message, ...args: string[]): Promise<void> => {
         const commandName = args[0];
         if (!args.length || commandName === 'help') {
-          await message.channel.send(helpUsage, { code: true });
+          const moreUsage = this.appendListOfAvailableCommandsToUsage(usage);
+          await message.channel.send(moreUsage, { code: true });
           return;
         }
         const command = this.get(commandName);
         if (!command) throw new Error(`\`${commandName}\` command not found`);
         await message.channel.send(command.usage, { code: true });
       },
-    });
-    commands.forEach(command => this.set(command.name, command));
+    };
+  }
+
+  private appendListOfAvailableCommandsToUsage(usage: string): string {
+    const commandNames = Array.from(this.keys())
+      .sort()
+      .join(', ');
+    return `${usage}\nAvailable commands in current context: ${commandNames}`;
   }
 }

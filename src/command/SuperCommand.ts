@@ -18,7 +18,7 @@ export default class SuperCommand implements Command {
   readonly usage: string;
   readonly allowedRole?: string;
   readonly allowedUsers?: string[];
-  private readonly subcommands: CommandMap;
+  readonly subcommands: CommandMap;
 
   constructor(params: ConstructorParams) {
     this.name = params.name;
